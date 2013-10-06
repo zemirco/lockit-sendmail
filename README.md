@@ -16,6 +16,7 @@ var adapter = require('....');
  - inline css styles for proper formatting even in GMail and Outlook (CSS inlined with [juice](https://github.com/LearnBoost/juice))
  - html email templates for verify email address, email taken, forgot password and resend verification
  - works with the same configuration as [nodemailer](https://github.com/andris9/Nodemailer)
+ - uses [node-uuid](https://github.com/broofa/node-uuid) for secret tokens
 
 ## Methods
 
@@ -63,7 +64,7 @@ exports.emailSignup = {
  - `text` - the email's body
  - `linkText` - the text of the link, which points back to our app
 
-### Email taken when duplicate email address signs up
+### Duplicate email tries to sign up
 
 When a user tries to sign up with an email address that already exists we send a hint to the right owner to indicate
 this happening. Never expose to a user whether an email address exists or not.
@@ -125,9 +126,68 @@ sendmail.resendVerification('john', 'john@email', 'cde456', function(err, messag
 });
 ```
 
-## Setup
+You can configure the email's content through your `config.js`. Just modify the `emailResendVerification` object.
+Here is a sample setup.
 
-... config files
+```js
+exports.emailResendVerification = {
+  subject: 'Complete your registration at <%- appname %>',
+  title: 'Complete your registration at <%- appname %>',
+  text: [
+    '<h2>Hello <%- username %></h2>',
+    'here is the link again. <%- link %> to complete your registration for <%- appname %>.',
+    '<p>The <%- appname %> Team</p>'
+  ].join(''),
+  linkText: 'Click here'
+};
+```
+
+ - `subject` - the email's subject
+ - `title` - the title of the html email. Doesn't have to be the same as `subject`
+ - `text` - the email's body
+ - `linkText` - the text of the link, which points back to our app
+
+### Forgot password email
+
+A user has forgotten his password and would like to create a new one. He enters his email address and an email with a link
+containing a secret token is sent to his email address.
+
+`sendmail.forgotPassword(username, email, token, callback)`
+
+ - `username`: String - i.e. 'john' - used in the email body
+ - `email`: String - i.e. 'john@email.com' - recipient email address
+ - `token`: String - i.e. 'abc123' - secret token for email verification
+ - `callback`: Function - callback(err, message) - callback function when email was sent
+
+```js
+var sendmail = require('sendmail');
+
+sendmail.forgotPassword('john', 'john@email', 'abc123', function(err, message) {
+  if (err) console.log(err);
+  // ...
+});
+```
+
+You can configure the email's content through your `config.js`. Just modify the `emailForgotPassword` object.
+Here is a sample setup.
+
+```js
+exports.emailForgotPassword = {
+  subject: 'Reset your password',
+  title: 'Reset your password',
+  text: [
+    '<h2>Hey <%- username %></h2>',
+    '<%- link %> to reset your password.',
+    '<p>The <%- appname %> Team</p>'
+  ].join(''),
+  linkText: 'Click here'
+};
+```
+
+ - `subject` - the email's subject
+ - `title` - the title of the html email. Doesn't have to be the same as `subject`
+ - `text` - the email's body
+ - `linkText` - the text of the link, which points back to our app
 
 ## Test
 
