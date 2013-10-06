@@ -19,14 +19,18 @@ var adapter = require('....');
 
 ## Methods
 
-### Verify email address on signup
+### Verify email address
+
+After user has signed up an email is sent to his email address.
+A unique token is included within a link pointing back to our app.
+When the user clicks on this link we know that the given email address exists und belongs to the right user.
 
 `sendmail.emailVerification(username, email, token, callback)`
 
- - `username`: String - i.e. 'john', used in the email body
- - `mail`: String - i.e. 'john@email.com', recipient email address
- - `token`: String - i.e. 'abc123', secret token for email address verification
- - `callback`: Function - callback(err, message), callback function when email was sent
+ - `username`: String - i.e. 'john' - used in the email body
+ - `mail`: String - i.e. 'john@email.com' - recipient email address
+ - `token`: String - i.e. 'abc123' - secret token for email address verification
+ - `callback`: Function - callback(err, message) - callback function when email was sent
 
 ```js
 var sendmail = require('sendmail');
@@ -36,6 +40,30 @@ sendmail.emailVerification('john', 'john@email', 'abc123', function(err, message
   // ...
 })
 ```
+
+### Email taken when duplicate email address signs up
+
+When a user tries to sign up with an email address that already exists we send a hint to the right owner to indicate
+this happening. Never expose to a user whether an email address exists or not
+
+`sendmail.emailTaken(username, email, callback)`
+
+ - `username`: String - i.e. 'john' - used in the email body
+ - `email`: String - i.e. `john@email.com` - recipient email address
+ - `callback`: String - callback(err, message) - callback function when email was sent
+
+```js
+var sendmail = require('sendmail');
+
+sendmail.emailTaken('john', 'john@email', function(err, message) {
+  if (err) console.log(err);
+  // ...
+})
+```
+
+## Setup
+
+... config files
 
 ## Test
 
