@@ -124,6 +124,8 @@ A user signed up but lost or didn't receive the email containing the link for hi
 Therefore he should be able to send the link again, with a different verification token.
 The `signup-resend-verification.html` template is used with the `emailResendVerification` object from `config.js`.
 
+![resend verification email](https://s3.amazonaws.com/zeMirco/github/lockit-sendmail/signup-resend-verification.png)
+
 `sendmail.resendVerification(username, email, token, callback)`
 
  - `username`: String - i.e. 'john' - used in the email body
