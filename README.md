@@ -1,13 +1,13 @@
 # Email functions for lockit
 
-work in progress - come back later
+Email utilities for lockit middleware.
 
 ## Installation
 
-`npm install ...`
+`npm install lockit-sendmail`
 
 ```js
-var adapter = require('....');
+var sendmail = require('lockit-sendmail');
 ```
 
 ## What's included
