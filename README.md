@@ -147,11 +147,11 @@ Here is a sample setup.
 
 ```js
 exports.emailResendVerification = {
-  subject: 'Complete your registration at <%- appname %>',
-  title: 'Complete your registration at <%- appname %>',
+  subject: 'Complete your registration',
+  title: 'Complete your registration',
   text: [
     '<h2>Hello <%- username %></h2>',
-    'here is the link again. <%- link %> to complete your registration for <%- appname %>.',
+    'here is the link again. <%- link %> to complete your registration.',
     '<p>The <%- appname %> Team</p>'
   ].join(''),
   linkText: 'Click here'
@@ -169,6 +169,8 @@ A user has forgotten his password and would like to create a new one.
 He enters his email address and an email with a link
 containing a secret token is sent to his email address.
 The `forgot-password.html` template is used with the `emailForgotPassword` object from `config.js`.
+
+![forgot password](https://s3.amazonaws.com/zeMirco/github/lockit-sendmail/forgot-password.png)
 
 `sendmail.forgotPassword(username, email, token, callback)`
 
