@@ -1,6 +1,4 @@
 exports.appname = 'Test App';
-exports.url = 'http://localhost:3000';
-exports.port = 3000; // Todo: use port instead full url
 
 // show debugging statements in console
 exports.debug = false;
