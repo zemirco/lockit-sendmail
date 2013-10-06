@@ -78,7 +78,7 @@ describe('sendmail', function() {
         if (err) console.log(err);
         res.message.should.include('<h2>Hello john</h2>');
         var link = mimelib.encodeQuotedPrintable('<a href="http://localhost:3000/signup/abc123">Click here</a>');
-        res.message.should.include(link);
+        res.message.clean().should.include(link.clean());
         done();
       });
     });
@@ -106,8 +106,8 @@ describe('sendmail', function() {
     it('should use the correct local variables', function(done) {
       sendmail.emailTaken('john', 'john@email.com', function(err, res) {
         if (err) console.log(err);
-        res.message.clean().should.include('<h2>Hello</h2>you or someone else tried to sign up for Test App.');
-        res.message.should.include('Your email is already registered and you cannot sign up twice.');
+        res.message.clean().should.include('<h2>Hello john</h2>you or someone else tried to sign up for Test App.');
+        res.message.clean().should.include('Your email is already registered and you cannot sign up twice.');
         done();
       });
     });
