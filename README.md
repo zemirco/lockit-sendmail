@@ -61,8 +61,8 @@ exports.emailSignup = {
   title: 'Welcome to <%- appname %>',
   text: [
     '<h2>Hello <%- username %></h2>',
-    'Welcome to <%- appname %>.',
-    '<p><%- link %> to complete your registration</p>'
+    'Welcome to <%- appname %>!',
+    '<p><%- link %> to complete your registration.</p>'
   ].join(''),
   linkText: 'Click here'
 };
@@ -79,6 +79,8 @@ A user tries to sign up with an email address that already exists.
 We send a hint to the right owner to indicate this happening.
 Never expose to a user whether an email address exists or not.
 The `signup-email-taken.html` template is used with the `emailSignupTaken` object from `config.js`.
+
+![email already taken](https://s3.amazonaws.com/zeMirco/github/lockit-sendmail/signup-email-taken.png)
 
 `sendmail.emailTaken(username, email, callback)`
 
@@ -103,10 +105,10 @@ exports.emailSignupTaken = {
   subject: 'Email already registered',
   title: 'Email already registered',
   text: [
-    '<h2>Hello</h2>',
+    '<h2>Hello <%- username %></h2>',
     'you or someone else tried to sign up for <%- appname %>.',
-    'Your email is already registered and you cannot sign up twice.',
-    'If you haven\'t tried to sign up, please ignore this email. Everything is fine.',
+    '<p>Your email is already registered and you cannot sign up twice.',
+    ' If you haven\'t tried to sign up, you can safely ignore this email. Everything is fine!</p>',
     '<p>The <%- appname %> Team</p>'
   ].join('')
 };

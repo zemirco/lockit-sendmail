@@ -36,10 +36,10 @@ exports.emailSignupTaken = {
   subject: 'Email already registered',
   title: 'Email already registered',
   text: [
-    '<h2>Hello</h2>',
+    '<h2>Hello <%- username %></h2>',
     'you or someone else tried to sign up for <%- appname %>.',
-    'Your email is already registered and you cannot sign up twice.',
-    'If you haven\'t tried to sign up, please ignore this email. Everything is fine.',
+    '<p>Your email is already registered and you cannot sign up twice.',
+    'If you haven\'t tried to sign up, please ignore this email. Everything is fine.</p>',
     '<p>The <%- appname %> Team</p>'
   ].join('')
 };
