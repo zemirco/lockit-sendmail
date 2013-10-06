@@ -41,26 +41,6 @@ sendmail.emailVerification('john', 'john@email', 'abc123', function(err, message
 });
 ```
 
-### Email taken when duplicate email address signs up
-
-When a user tries to sign up with an email address that already exists we send a hint to the right owner to indicate
-this happening. Never expose to a user whether an email address exists or not.
-
-`sendmail.emailTaken(username, email, callback)`
-
- - `username`: String - i.e. 'john' - used in the email body
- - `email`: String - i.e. `john@email.com` - recipient email address
- - `callback`: String - callback(err, message) - callback function when email was sent
-
-```js
-var sendmail = require('sendmail');
-
-sendmail.emailTaken('john', 'john@email', function(err, message) {
-  if (err) console.log(err);
-  // ...
-});
-```
-
 You can configure the email's content through your `config.js`. Just modify the `emailSignup` object.
 Here is a sample setup.
 
@@ -82,6 +62,47 @@ exports.emailSignup = {
  - `title` - the title of the html email. Doesn't have to be the same as `subject`
  - `text` - the email's body
  - `linkText` - the text of the link, which points back to our app
+
+### Email taken when duplicate email address signs up
+
+When a user tries to sign up with an email address that already exists we send a hint to the right owner to indicate
+this happening. Never expose to a user whether an email address exists or not.
+
+`sendmail.emailTaken(username, email, callback)`
+
+ - `username`: String - i.e. 'john' - used in the email body
+ - `email`: String - i.e. `john@email.com` - recipient email address
+ - `callback`: String - callback(err, message) - callback function when email was sent
+
+```js
+var sendmail = require('sendmail');
+
+sendmail.emailTaken('john', 'john@email', function(err, message) {
+  if (err) console.log(err);
+  // ...
+});
+```
+
+You can configure the email's content through your `config.js`. Just modify the `emailSignupTaken` object.
+Here is a sample setup.
+
+```js
+exports.emailSignupTaken = {
+  subject: 'Email already registered',
+  title: 'Email already registered',
+  text: [
+    '<h2>Hello</h2>',
+    'you or someone else tried to sign up for <%- appname %>.',
+    'Your email is already registered and you cannot sign up twice.',
+    'If you haven\'t tried to sign up, please ignore this email. Everything is fine.',
+    '<p>The <%- appname %> Team</p>'
+  ].join('')
+};
+```
+
+ - `subject` - the email's subject
+ - `title` - the title of the html email. Doesn't have to be the same as `subject`
+ - `text` - the email's body
 
 ### Send email address verification link again
 
