@@ -1,4 +1,4 @@
-# Email functions for lockit
+# Email utilities for lockit
 
 [![Build Status](https://travis-ci.org/zeMirco/lockit-sendmail.png)](https://travis-ci.org/zeMirco/lockit-sendmail)
 
@@ -32,6 +32,7 @@ var sendmail = require('lockit-sendmail');
 A new user has signed up and his email address needs to be verified.
 An email with a link containing a unique token is sent to his email address.
 When the user clicks on this link we know that the given email address exists und belongs to the right user.
+The `signup-email-verification.html` template is used with the `emailSignup` object from `config.js`.
 
 `sendmail.emailVerification(username, email, token, callback)`
 
@@ -76,6 +77,7 @@ exports.emailSignup = {
 A user tries to sign up with an email address that already exists.
 We send a hint to the right owner to indicate this happening.
 Never expose to a user whether an email address exists or not.
+The `signup-email-taken.html` template is used with the `emailSignupTaken` object from `config.js`.
 
 `sendmail.emailTaken(username, email, callback)`
 
@@ -117,6 +119,7 @@ exports.emailSignupTaken = {
 
 A user signed up but lost or didn't receive the email containing the link for his email address verification.
 Therefore he should be able to send the link again, with a different verification token.
+The `signup-resend-verification.html` template is used with the `emailResendVerification` object from `config.js`.
 
 `sendmail.resendVerification(username, email, token, callback)`
 
@@ -160,6 +163,7 @@ exports.emailResendVerification = {
 A user has forgotten his password and would like to create a new one.
 He enters his email address and an email with a link
 containing a secret token is sent to his email address.
+The `forgot-password.html` template is used with the `emailForgotPassword` object from `config.js`.
 
 `sendmail.forgotPassword(username, email, token, callback)`
 
