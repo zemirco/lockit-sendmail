@@ -38,13 +38,13 @@ var sendmail = require('sendmail');
 sendmail.emailVerification('john', 'john@email', 'abc123', function(err, message) {
   if (err) console.log(err);
   // ...
-})
+});
 ```
 
 ### Email taken when duplicate email address signs up
 
 When a user tries to sign up with an email address that already exists we send a hint to the right owner to indicate
-this happening. Never expose to a user whether an email address exists or not
+this happening. Never expose to a user whether an email address exists or not.
 
 `sendmail.emailTaken(username, email, callback)`
 
@@ -58,7 +58,28 @@ var sendmail = require('sendmail');
 sendmail.emailTaken('john', 'john@email', function(err, message) {
   if (err) console.log(err);
   // ...
-})
+});
+```
+
+### Send email address verification link again
+
+A user signed up but lost or didn't receive the email containing the link for his email address verification.
+Therefore he should be able to send the link again, with a different verification token.
+
+`sendmail.resendVerification(username, email, token, callback)`
+
+ - `username`: String - i.e. 'john' - used in the email body
+ - `email`: String - i.e. 'john@email.com' - recipient email address
+ - `token`: String - i.e. 'cde456' - secret token for email verification
+ - `callback`: Function - callback(err, message) - callback function when email was sent
+
+```js
+var sendmail = require('sendmail');
+
+sendmail.resendVerification('john', 'john@email', 'cde456', function(err, message) {
+  if (err) console.log(err);
+  // ...
+});
 ```
 
 ## Setup
