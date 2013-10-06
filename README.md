@@ -1,5 +1,7 @@
 # Email functions for lockit
 
+[![Build Status](https://travis-ci.org/zeMirco/lockit-sendmail.png)](https://travis-ci.org/zeMirco/lockit-sendmail)
+
 Email utilities for lockit middleware.
 
 ## Installation
@@ -10,7 +12,7 @@ Email utilities for lockit middleware.
 var sendmail = require('lockit-sendmail');
 ```
 
-## What's included
+## What's included?
 
  - responsive email template (created by [mailchimp](https://github.com/mailchimp/Email-Blueprints))
  - inline css styles for proper formatting even in GMail and Outlook (CSS inlined with [juice](https://github.com/LearnBoost/juice))
