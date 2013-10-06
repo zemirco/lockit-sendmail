@@ -8,6 +8,20 @@ Email utilities for lockit middleware.
 
 `npm install lockit-sendmail`
 
+Add credentials to your `config.js`. This module uses `nodemailer` for sending emails. You can therefore
+use the same email types and email settings.
+
+```js
+exports.emailType = 'SMTP';
+exports.emailSettings = {
+  service: 'Gmail',
+  auth: {
+    user: 'john.wayne@gmail.com',
+    pass: 'cowboy'
+  }
+};
+```
+
 ```js
 var sendmail = require('lockit-sendmail');
 ```
