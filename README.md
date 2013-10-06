@@ -29,8 +29,8 @@ var sendmail = require('lockit-sendmail');
 
 ### Verify email address
 
-After user has signed up an email is sent to his email address.
-A unique token is included within a link pointing back to our app.
+A new user has signed up and his email address needs to be verified.
+An email with a link containing a unique token is sent to his email address.
 When the user clicks on this link we know that the given email address exists und belongs to the right user.
 
 `sendmail.emailVerification(username, email, token, callback)`
@@ -73,8 +73,9 @@ exports.emailSignup = {
 
 ### Duplicate email tries to sign up
 
-When a user tries to sign up with an email address that already exists we send a hint to the right owner to indicate
-this happening. Never expose to a user whether an email address exists or not.
+A user tries to sign up with an email address that already exists.
+We send a hint to the right owner to indicate this happening.
+Never expose to a user whether an email address exists or not.
 
 `sendmail.emailTaken(username, email, callback)`
 
@@ -156,7 +157,8 @@ exports.emailResendVerification = {
 
 ### Forgot password email
 
-A user has forgotten his password and would like to create a new one. He enters his email address and an email with a link
+A user has forgotten his password and would like to create a new one.
+He enters his email address and an email with a link
 containing a secret token is sent to his email address.
 
 `sendmail.forgotPassword(username, email, token, callback)`
