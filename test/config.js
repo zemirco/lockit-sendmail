@@ -25,9 +25,8 @@ exports.emailSignup = {
   title: 'Welcome to <%- appname %>',
   text: [
     '<h2>Hello <%- username %></h2>',
-    'This is awesome',
-    '<p>You should come and see this</p>',
-    '<%- link %> to finish registration'
+    'Welcome to <%- appname %>!',
+    '<p><%- link %> to complete your registration.</p>'
   ].join(''),
   linkText: 'Click here'
 };

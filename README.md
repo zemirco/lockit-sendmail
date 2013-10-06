@@ -34,6 +34,8 @@ An email with a link containing a unique token is sent to his email address.
 When the user clicks on this link we know that the given email address exists und belongs to the right user.
 The `signup-email-verification.html` template is used with the `emailSignup` object from `config.js`.
 
+![email verification on signup](https://s3.amazonaws.com/zeMirco/github/lockit-sendmail/signup-email-verification.png)
+
 `sendmail.emailVerification(username, email, token, callback)`
 
  - `username`: String - i.e. 'john' - used in the email body
@@ -59,9 +61,8 @@ exports.emailSignup = {
   title: 'Welcome to <%- appname %>',
   text: [
     '<h2>Hello <%- username %></h2>',
-    'This is awesome',
-    '<p>You should come and see this</p>',
-    '<%- link %> to finish registration'
+    'Welcome to <%- appname %>.',
+    '<p><%- link %> to complete your registration</p>'
   ].join(''),
   linkText: 'Click here'
 };
