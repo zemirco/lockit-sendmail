@@ -61,6 +61,28 @@ sendmail.emailTaken('john', 'john@email', function(err, message) {
 });
 ```
 
+You can configure the email's content through your `config.js`. Just modify the `emailSignup` object.
+Here is a sample setup.
+
+```js
+exports.emailSignup = {
+  subject: 'Welcome to <%- appname %>',
+  title: 'Welcome to <%- appname %>',
+  text: [
+    '<h2>Hello <%- username %></h2>',
+    'This is awesome',
+    '<p>You should come and see this</p>',
+    '<%- link %> to finish registration'
+  ].join(''),
+  linkText: 'Click here'
+};
+```
+
+ - `subject` - the email's subject
+ - `title` - the title of the html email. Doesn't have to be the same as `subject`
+ - `text` - the email's body
+ - `linkText` - the text of the link, which points back to our app
+
 ### Send email address verification link again
 
 A user signed up but lost or didn't receive the email containing the link for his email address verification.
