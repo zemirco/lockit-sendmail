@@ -22,6 +22,11 @@ var sendmail = require('lockit-sendmail');
 
 ## Methods
 
+ - [verify email address on signup](#verify-email-address)
+ - [notify on signup with duplicate email address](#duplicate-email-tries-to-sign-up)
+ - [resend signup email for address verification](#send-email-address-verification-link-again)
+ - [forgot password](#forgot-password-email)
+
 ### Verify email address
 
 After user has signed up an email is sent to his email address.
