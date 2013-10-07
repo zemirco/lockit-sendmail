@@ -1,13 +1,27 @@
 {
   "name": "lockit-sendmail",
   "version": "0.0.1",
-  "description": "Does all the email communication for lockit",
+  "description": "utilities for all the email communication from lockit",
   "main": "index.js",
   "scripts": {
     "test": "grunt"
   },
-  "author": "",
-  "license": "BSD-2-Clause",
+  "author": {
+    "name": "Mirco Zeiss",
+    "email": "mirco.zeiss@gmail.com",
+    "twitter": "zeMirco"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zeMirco/lockit-sendmail"
+  },
+  "keywords": [
+    "lockit",
+    "sendmail",
+    "send",
+    "email"
+  ],
   "dependencies": {
     "ejs": "~0.8.4",
     "nodemailer": "~0.5.2"
