@@ -13,7 +13,7 @@ String.prototype.clean = function() {
 
 describe('sendmail', function() {
 
-  var defaultPath = __dirname + '/../templates/base-boxed-basic-query/';
+  var defaultPath = __dirname + '/../templates/' + config.emailTemplate + '/';
 
   describe('require module', function() {
 

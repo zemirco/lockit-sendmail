@@ -19,6 +19,8 @@ exports.emailSettings = {
   }
 };
 
+exports.emailTemplate = 'blank';
+
 // email signup template
 exports.emailSignup = {
   subject: 'Welcome to <%- appname %>',

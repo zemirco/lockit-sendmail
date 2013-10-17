@@ -7,11 +7,6 @@ var ejs = require('ejs');
 // tmp var to prevent rendering of templates twice
 var hasBeenRequired = false;
 
-// read template from file and insert local variables
-function _render(template, locals, cb) {
-  ejs.renderFile(path.join(__dirname, 'templates/base-boxed-basic-query/' + template), locals, cb);
-}
-
 // send email with nodemailer
 function _send(config, options, cb) {
   var smtpTransport = nodemailer.createTransport(config.emailType, config.emailSettings);
@@ -24,6 +19,11 @@ function _send(config, options, cb) {
 }
 
 module.exports = function(config) {
+
+  // read template from file and insert local variables
+  function _render(template, locals, cb) {
+    ejs.renderFile(path.join(__dirname, 'templates/' + config.emailTemplate + '/' + template), locals, cb);
+  }
 
   // render templates for various emails
   function _renderTemplates() {
@@ -47,11 +47,11 @@ module.exports = function(config) {
       };
 
       // read original template from file
-      ejs.renderFile(path.join(__dirname, 'templates/base-boxed-basic-query/original-inline-styles.html'), locals, function(err, html) {
+      ejs.renderFile(path.join(__dirname, 'templates/' + config.emailTemplate +'/index.html'), locals, function(err, html) {
         if (err) console.log(err);
 
         // write template with given locals
-        fs.writeFile(path.join(__dirname, 'templates/base-boxed-basic-query/' + item.name), html, function(err) {
+        fs.writeFile(path.join(__dirname, 'templates/' + config.emailTemplate + '/' + item.name), html, function(err) {
           if (err) console.log(err);
           if (config.debug) console.log('lockit-sendmail: '.green + item.name + ' template rendered');
         });
