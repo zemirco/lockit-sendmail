@@ -1,12 +1,20 @@
-# Email utilities for lockit
+# Lockit sendmail
 
-[![Build Status](https://travis-ci.org/zeMirco/lockit-sendmail.png)](https://travis-ci.org/zeMirco/lockit-sendmail)
+[![Build Status](https://travis-ci.org/zeMirco/lockit-sendmail.png)](https://travis-ci.org/zeMirco/lockit-sendmail) [![NPM version](https://badge.fury.io/js/lockit-sendmail.png)](http://badge.fury.io/js/lockit-sendmail)
 
-Email utilities for lockit middleware.
+[![NPM](https://nodei.co/npm/lockit-sendmail.png)](https://nodei.co/npm/lockit-sendmail/)
+
+Email utilities for [Lockit](https://github.com/zeMirco/lockit).
 
 ## Installation
 
 `npm install lockit-sendmail`
+
+```js
+var sendmail = require('lockit-sendmail');
+```
+
+## Configuration
 
 Add credentials to your `config.js`. This module uses `nodemailer` for sending emails. You can therefore
 use the same email types and email settings.
@@ -22,11 +30,7 @@ exports.emailSettings = {
 };
 ```
 
-```js
-var sendmail = require('lockit-sendmail');
-```
-
-## What's included?
+## Features
 
  - responsive email template (created by [mailchimp](https://github.com/mailchimp/Email-Blueprints))
  - inline css styles for proper formatting even in GMail and Outlook (CSS inlined with [juice](https://github.com/LearnBoost/juice))
