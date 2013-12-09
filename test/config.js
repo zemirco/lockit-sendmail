@@ -19,7 +19,7 @@ exports.emailSettings = {
   }
 };
 
-exports.emailTemplate = 'blank';
+exports.emailTemplate = 'lockit-template-blank';
 
 // email signup template
 exports.emailSignup = {
