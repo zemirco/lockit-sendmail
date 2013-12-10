@@ -37,7 +37,7 @@ describe('sendmail', function() {
       email.send('john', 'john@email.com', 'abc123', function(err, res) {
         if (err) console.log(err);
         res.message.should.include('<h2>Hello john</h2>');
-        var link = mimelib.encodeQuotedPrintable('<a href="http://localhost:3000/signup/verify/abc123">Click here</a>');
+        var link = mimelib.encodeQuotedPrintable('<a href="http://localhost:3000/signup/abc123">Click here</a>');
         res.message.clean().should.include(link.clean());
         done();
       });
@@ -60,7 +60,7 @@ describe('sendmail', function() {
       var email = new Email('emailSignup');
       email.send('john', 'john@email.com', 'qweqwe', function(err, res) {
         if (err) console.log(err);
-        var link = mimelib.encodeQuotedPrintable('<a href="http://localhost:3000/signup/verify/qweqwe">Click here</a>');
+        var link = mimelib.encodeQuotedPrintable('<a href="http://localhost:3000/signup/qweqwe">Click here</a>');
         res.message.clean().should.include(link.clean());
         done();
       });
@@ -96,7 +96,7 @@ describe('sendmail', function() {
       var email = new Email('emailResendVerification');
       email.send('john', 'john@email.com', 'qweqwe', function(err, res) {
         if (err) console.log(err);
-        var link = mimelib.encodeQuotedPrintable('<a href="http://localhost:3000/signup/verify/qweqwe">Click here</a>');
+        var link = mimelib.encodeQuotedPrintable('<a href="http://localhost:3000/signup/qweqwe">Click here</a>');
         res.message.clean().should.include(link.clean());
         done();
       });

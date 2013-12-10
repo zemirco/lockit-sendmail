@@ -40,10 +40,10 @@ module.exports = function(config) {
       if (that.type !== 'emailSignupTaken' && typeof token === 'string') {
         switch (that.type) {
           case 'emailSignup':
-            link = '<a href="' + config.url + config.signupRoute + '/verify/' + token + '">' + config.emailSignup.linkText + '</a>';
+            link = '<a href="' + config.url + config.signupRoute + '/' + token + '">' + config.emailSignup.linkText + '</a>';
             break;
           case 'emailResendVerification':
-            link = '<a href="' + config.url + config.signupRoute + '/verify/' + token + '">' + config.emailResendVerification.linkText + '</a>';
+            link = '<a href="' + config.url + config.signupRoute + '/' + token + '">' + config.emailResendVerification.linkText + '</a>';
             break;
           case 'emailForgotPassword':
             link = '<a href="' + config.url + config.forgotPasswordRoute + '/' + token + '">' + config.emailForgotPassword.linkText + '</a>';
