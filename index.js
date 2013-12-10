@@ -11,12 +11,7 @@ module.exports = function(config) {
   var Email = function(type) {
     
     // save type of email for proper link generation
-    this._type = type;
-
-    // set subject, title and text for email
-    this._subject = config[type].subject;
-    this._title = config[type].title;
-    this._text = config[type].text;
+    this.type = type;
     
   };
   
@@ -28,17 +23,22 @@ module.exports = function(config) {
     if (arguments.length === 3) {
       done = token;
     }
-    
+        
     var that = this;
     
+    // get subject, title and text from config file
+    var subject = config[that.type].subject;
+    var title = config[that.type].title;
+    var text = config[that.type].text;
+    
     // load template
-    template(this._title, this._text, function(err, html) {
+    template(title, text, function(err, html) {
       if (err) return done(err);
       
       // create link if necessary
       var link = '';
-      if (that._type !== 'emailSignupTaken') {
-        switch (that._type) {
+      if (that.type !== 'emailSignupTaken' && typeof token === 'string') {
+        switch (that.type) {
           case 'emailSignup':
             link = '<a href="' + config.url + config.signupRoute + '/verify/' + token + '">' + config.emailSignup.linkText + '</a>';
             break;
@@ -50,24 +50,25 @@ module.exports = function(config) {
             break;
         }
       }
-
+      
       // default local variables
-      that.locals = {
+      var locals = {
         appname: config.appname,
         link: link,
         username: username
       };
       
       // add options
-      that.options = {
+      var options = {
         from: config.emailFrom,
         to: email,
-        subject: ejs.render(that._subject, that.locals),
-        html: ejs.render(html, that.locals)
+        subject: ejs.render(subject, locals),
+        html: ejs.render(html, locals)
       };
       
+      // send email with nodemailer
       var smtpTransport = nodemailer.createTransport(config.emailType, config.emailSettings);
-      smtpTransport.sendMail(that.options, function(err, res){
+      smtpTransport.sendMail(options, function(err, res){
         if(err) return done(err);
         smtpTransport.close(); // shut down the connection pool, no more messages
         done(null, res);
