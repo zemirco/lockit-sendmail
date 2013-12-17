@@ -10,19 +10,30 @@ module.exports = function(config) {
   // constructor function
   var Email = function(type) {
     
+    // make "new" optional
+    if (!(this instanceof Email)) {
+      return new Email(type);
+    }
+    
     // save type of email for proper link generation
     this.type = type;
     
   };
   
-  // send email
-  // token is optional
+  // send email, token is optional
   Email.prototype.send = function(username, email, token, done) {
     
     // sometimes token isn't needed
     if (arguments.length === 3) {
       done = token;
     }
+
+    // link lookup map
+    var linkMap = {
+      emailSignup: '<a href="' + config.url + config.signupRoute + '/' + token + '">' + config.emailSignup.linkText + '</a>',
+      emailResendVerification: '<a href="' + config.url + config.signupRoute + '/' + token + '">' + config.emailResendVerification.linkText + '</a>',
+      emailForgotPassword: '<a href="' + config.url + config.forgotPasswordRoute + '/' + token + '">' + config.emailForgotPassword.linkText + '</a>'
+    };
         
     var that = this;
     
@@ -31,25 +42,12 @@ module.exports = function(config) {
     var title = config[that.type].title;
     var text = config[that.type].text;
     
-    // load template
+    // create html from template module
     template(title, text, function(err, html) {
       if (err) return done(err);
       
-      // create link if necessary
-      var link = '';
-      if (that.type !== 'emailSignupTaken' && typeof token === 'string') {
-        switch (that.type) {
-          case 'emailSignup':
-            link = '<a href="' + config.url + config.signupRoute + '/' + token + '">' + config.emailSignup.linkText + '</a>';
-            break;
-          case 'emailResendVerification':
-            link = '<a href="' + config.url + config.signupRoute + '/' + token + '">' + config.emailResendVerification.linkText + '</a>';
-            break;
-          case 'emailForgotPassword':
-            link = '<a href="' + config.url + config.forgotPasswordRoute + '/' + token + '">' + config.emailForgotPassword.linkText + '</a>';
-            break;
-        }
-      }
+      // create link for email
+      var link = linkMap[that.type] || '';
       
       // default local variables
       var locals = {
