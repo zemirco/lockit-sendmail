@@ -6,6 +6,8 @@ module.exports = function(config) {
 
   // load email template as specified in config
   var template = require(config.emailTemplate);
+  
+  
 
   // constructor function
   var Email = function(type) {
@@ -19,6 +21,8 @@ module.exports = function(config) {
     this.type = type;
     
   };
+  
+  
   
   // send email, token is optional
   Email.prototype.send = function(username, email, token, done) {
@@ -34,20 +38,18 @@ module.exports = function(config) {
       emailResendVerification: '<a href="' + config.url + config.signupRoute + '/' + token + '">' + config.emailResendVerification.linkText + '</a>',
       emailForgotPassword: '<a href="' + config.url + config.forgotPasswordRoute + '/' + token + '">' + config.emailForgotPassword.linkText + '</a>'
     };
-        
-    var that = this;
-    
+            
     // get subject, title and text from config file
-    var subject = config[that.type].subject;
-    var title = config[that.type].title;
-    var text = config[that.type].text;
+    var subject = config[this.type].subject;
+    var title = config[this.type].title;
+    var text = config[this.type].text;
+
+    // create link for email
+    var link = linkMap[this.type] || '';
     
     // create html from template module
     template(title, text, function(err, html) {
       if (err) return done(err);
-      
-      // create link for email
-      var link = linkMap[that.type] || '';
       
       // default local variables
       var locals = {
@@ -74,6 +76,8 @@ module.exports = function(config) {
     });
     
   };
+  
+  
   
   // return constructor function
   return Email;
