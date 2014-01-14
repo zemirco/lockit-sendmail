@@ -21,7 +21,7 @@ var Email = require('lockit-sendmail');
 // - 'emailForgotPassword'
 
 var email = new Email('emailSignup')
-email.send('john', 'john@wayne.com', ['secret-token',] function(err, res) {
+email.send('john', 'john@wayne.com', 'secret-token', function(err, res) {
   // res is the same res you would get from nodemailer
   // for more infos see https://github.com/andris9/Nodemailer#return-callback
 })
