@@ -66,7 +66,6 @@ exports.emailSettings = {
 A new user has signed up and his email address needs to be verified.
 An email with a link containing a unique token is sent to his email address.
 When the user clicks on this link we know that the given email address exists und belongs to the right user.
-The `emailSignup` object from `config.js` is used to generate the content.
 
 ```js
 var email = new Email('emailSignup');
@@ -103,7 +102,6 @@ exports.emailSignup = {
 A user tries to sign up with an email address that already exists.
 We send a hint to the right owner to indicate this happening.
 Never expose to a user whether an email address exists or not.
-The `emailSignupTaken` object from `config.js` is used to generate the content.
 
 ```js
 var email = new Email('emailSignupTaken');
@@ -139,7 +137,6 @@ exports.emailSignupTaken = {
 
 A user signed up but lost or didn't receive the email containing the link for his email address verification.
 Therefore he should be able to send the link again, with a different verification token.
-The `emailResendVerification` object from `config.js` is used to generate the content.
 
 ```js
 var email = new Email('emailResendVerification');
@@ -176,7 +173,6 @@ exports.emailResendVerification = {
 A user has forgotten his password and would like to create a new one.
 He enters his email address and an email with a link
 containing a secret token is sent to his email address.
-The `emailForgotPassword` object from `config.js` is used to generate the content.
 
 ```js
 var email = new Email('emailForgotPassword');
