@@ -46,14 +46,6 @@ exports.emailSettings = {
 };
 ```
 
-## Features
-
- - responsive email template (created by [mailchimp](https://github.com/mailchimp/Email-Blueprints))
- - inline css styles for proper formatting even in GMail and Outlook (CSS inlined with [juice](https://github.com/LearnBoost/juice))
- - html email templates for verify email address, email taken, forgot password and resend verification
- - works with the same configuration as [nodemailer](https://github.com/andris9/Nodemailer)
- - uses [node-uuid](https://github.com/broofa/node-uuid) for secret tokens
-
 ## Methods
 
  - [verify email address on signup](#verify-email-address)
