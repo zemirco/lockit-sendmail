@@ -13,7 +13,14 @@ Email utilities for [Lockit](https://github.com/zeMirco/lockit).
 ```js
 var Email = require('lockit-sendmail');
 
-var email = new Email('emailSignup') // or 'emailSignupTaken', 'emailResendVerification', 'emailForgotPassword';
+// var email = new Email(type)
+// where type can be
+// - 'emailSignup'
+// - 'emailSignupTaken'
+// - 'emailResendVerification'
+// - 'emailForgotPassword'
+
+var email = new Email('emailSignup')
 email.send('john', 'john@wayne.com', ['secret-token',] function(err, res) {
   // res is the same res you would get from nodemailer
   // for more infos see https://github.com/andris9/Nodemailer#return-callback
