@@ -11,8 +11,17 @@ Email utilities for [Lockit](https://github.com/zeMirco/lockit).
 `npm install lockit-sendmail`
 
 ```js
-var sendmail = require('lockit-sendmail');
+var Email = require('lockit-sendmail');
+
+var email = new Email('emailSignup') // or 'emailSignupTaken', 'emailResendVerification', 'emailForgotPassword';
+email.send('john', 'john@wayne.com', ['secret-token',] function(err, res) {
+  // res is the same res you would get from nodemailer
+  // for more infos see https://github.com/andris9/Nodemailer#return-callback
+})
 ```
+
+The third argument `secret-token` is optional. It is usually required but not for the email that
+tells a user that an email address is already registered.
 
 ## Configuration
 
@@ -50,27 +59,18 @@ exports.emailSettings = {
 A new user has signed up and his email address needs to be verified.
 An email with a link containing a unique token is sent to his email address.
 When the user clicks on this link we know that the given email address exists und belongs to the right user.
-The `signup-email-verification.html` template is used with the `emailSignup` object from `config.js`.
-
-![email verification on signup](https://s3.amazonaws.com/zeMirco/github/lockit-sendmail/signup-email-verification.png)
-
-`sendmail.emailVerification(username, email, token, callback)`
-
- - `username`: String - i.e. 'john' - used in the email body
- - `mail`: String - i.e. 'john@email.com' - recipient email address
- - `token`: String - i.e. 'abc123' - secret token for email address verification
- - `callback`: Function - callback(err, message) - callback function when email was sent
+The `emailSignup` object from `config.js` is used to generate the content.
 
 ```js
-var sendmail = require('sendmail');
-
-sendmail.emailVerification('john', 'john@email', 'abc123', function(err, message) {
+var email = new Email('emailSignup');
+email.send('john', 'john@wayne.com', 'abc-123-def', function(err, res) {
   if (err) console.log(err);
   // ...
-});
+})
 ```
 
-You can configure the email's content through your `config.js`. Just modify the `emailSignup` object.
+You can configure the email's content through your `config.js`. 
+Just modify the `emailSignup` object.
 Here is a sample setup.
 
 ```js
@@ -96,26 +96,18 @@ exports.emailSignup = {
 A user tries to sign up with an email address that already exists.
 We send a hint to the right owner to indicate this happening.
 Never expose to a user whether an email address exists or not.
-The `signup-email-taken.html` template is used with the `emailSignupTaken` object from `config.js`.
-
-![email already taken](https://s3.amazonaws.com/zeMirco/github/lockit-sendmail/signup-email-taken.png)
-
-`sendmail.emailTaken(username, email, callback)`
-
- - `username`: String - i.e. 'john' - used in the email body
- - `email`: String - i.e. `john@email.com` - recipient email address
- - `callback`: String - callback(err, message) - callback function when email was sent
+The `emailSignupTaken` object from `config.js` is used to generate the content.
 
 ```js
-var sendmail = require('sendmail');
-
-sendmail.emailTaken('john', 'john@email', function(err, message) {
+var email = new Email('emailSignupTaken');
+email.send('john', 'john@wayne.com', function(err, res) {
   if (err) console.log(err);
   // ...
-});
+})
 ```
 
-You can configure the email's content through your `config.js`. Just modify the `emailSignupTaken` object.
+You can configure the email's content through your `config.js`. 
+Just modify the `emailSignupTaken` object.
 Here is a sample setup.
 
 ```js
@@ -140,27 +132,18 @@ exports.emailSignupTaken = {
 
 A user signed up but lost or didn't receive the email containing the link for his email address verification.
 Therefore he should be able to send the link again, with a different verification token.
-The `signup-resend-verification.html` template is used with the `emailResendVerification` object from `config.js`.
-
-![resend verification email](https://s3.amazonaws.com/zeMirco/github/lockit-sendmail/signup-resend-verification.png)
-
-`sendmail.resendVerification(username, email, token, callback)`
-
- - `username`: String - i.e. 'john' - used in the email body
- - `email`: String - i.e. 'john@email.com' - recipient email address
- - `token`: String - i.e. 'cde456' - secret token for email verification
- - `callback`: Function - callback(err, message) - callback function when email was sent
+The `emailResendVerification` object from `config.js` is used to generate the content.
 
 ```js
-var sendmail = require('sendmail');
-
-sendmail.resendVerification('john', 'john@email', 'cde456', function(err, message) {
+var email = new Email('emailResendVerification');
+email.send('john', 'john@wayne.com', 'abc-123-def', function(err, res) {
   if (err) console.log(err);
   // ...
-});
+})
 ```
 
-You can configure the email's content through your `config.js`. Just modify the `emailResendVerification` object.
+You can configure the email's content through your `config.js`. 
+Just modify the `emailResendVerification` object.
 Here is a sample setup.
 
 ```js
@@ -186,27 +169,18 @@ exports.emailResendVerification = {
 A user has forgotten his password and would like to create a new one.
 He enters his email address and an email with a link
 containing a secret token is sent to his email address.
-The `forgot-password.html` template is used with the `emailForgotPassword` object from `config.js`.
-
-![forgot password](https://s3.amazonaws.com/zeMirco/github/lockit-sendmail/forgot-password.png)
-
-`sendmail.forgotPassword(username, email, token, callback)`
-
- - `username`: String - i.e. 'john' - used in the email body
- - `email`: String - i.e. 'john@email.com' - recipient email address
- - `token`: String - i.e. 'abc123' - secret token for email verification
- - `callback`: Function - callback(err, message) - callback function when email was sent
+The `emailForgotPassword` object from `config.js` is used to generate the content.
 
 ```js
-var sendmail = require('sendmail');
-
-sendmail.forgotPassword('john', 'john@email', 'abc123', function(err, message) {
+var email = new Email('emailForgotPassword');
+email.send('john', 'john@wayne.com', 'abc-123-def', function(err, res) {
   if (err) console.log(err);
   // ...
-});
+})
 ```
 
-You can configure the email's content through your `config.js`. Just modify the `emailForgotPassword` object.
+You can configure the email's content through your `config.js`. 
+Just modify the `emailForgotPassword` object.
 Here is a sample setup.
 
 ```js
