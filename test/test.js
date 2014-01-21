@@ -43,6 +43,24 @@ describe('sendmail', function() {
       });
     });
 
+    it('should use contain username in the mail', function(done) {
+      var email = new Email('emailSignup');
+      email.send('john', 'john@email.com', function(err, res) {
+        if (err) console.log(err);
+        res.message.should.include('john');
+        done();
+      });
+    });
+
+    it('should use proper configuration values by default', function(done) {
+      var email = new Email('emailSignup');
+      email.send('john', 'john@email.com', function(err, res) {
+        if (err) console.log(err);
+        res.message.should.include(config.appname);
+        done();
+      });
+    });
+
   });
   
   describe('send email on signup', function() {
