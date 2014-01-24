@@ -74,7 +74,6 @@ Here is a sample setup.
 ```js
 exports.emailSignup = {
   subject: 'Welcome to <%- appname %>',
-  title: 'Welcome to <%- appname %>',
   text: [
     '<h2>Hello <%- username %></h2>',
     'Welcome to <%- appname %>!',
@@ -85,7 +84,6 @@ exports.emailSignup = {
 ```
 
  - `subject` - the email's subject
- - `title` - the title of the html email. Doesn't have to be the same as `subject`
  - `text` - the email's body
  - `linkText` - the text of the link, which points back to our app
 
@@ -110,7 +108,6 @@ Here is a sample setup.
 ```js
 exports.emailSignupTaken = {
   subject: 'Email already registered',
-  title: 'Email already registered',
   text: [
     '<h2>Hello <%- username %></h2>',
     'you or someone else tried to sign up for <%- appname %>.',
@@ -122,7 +119,6 @@ exports.emailSignupTaken = {
 ```
 
  - `subject` - the email's subject
- - `title` - the title of the html email. Doesn't have to be the same as `subject`
  - `text` - the email's body
 
 ### Send email address verification link again
@@ -145,7 +141,6 @@ Here is a sample setup.
 ```js
 exports.emailResendVerification = {
   subject: 'Complete your registration',
-  title: 'Complete your registration',
   text: [
     '<h2>Hello <%- username %></h2>',
     'here is the link again. <%- link %> to complete your registration.',
@@ -156,7 +151,6 @@ exports.emailResendVerification = {
 ```
 
  - `subject` - the email's subject
- - `title` - the title of the html email. Doesn't have to be the same as `subject`
  - `text` - the email's body
  - `linkText` - the text of the link, which points back to our app
 
@@ -181,7 +175,6 @@ Here is a sample setup.
 ```js
 exports.emailForgotPassword = {
   subject: 'Reset your password',
-  title: 'Reset your password',
   text: [
     '<h2>Hey <%- username %></h2>',
     '<%- link %> to reset your password.',
@@ -192,7 +185,6 @@ exports.emailForgotPassword = {
 ```
 
  - `subject` - the email's subject
- - `title` - the title of the html email. Doesn't have to be the same as `subject`
  - `text` - the email's body
  - `linkText` - the text of the link, which points back to our app
 
