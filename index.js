@@ -41,7 +41,7 @@ module.exports = function(config) {
             
     // get subject, title and text from config file
     var subject = config[this.type].subject;
-    var title = config[this.type].title;
+    var title = config[this.type].subject;
     var text = config[this.type].text;
 
     // create link for email
