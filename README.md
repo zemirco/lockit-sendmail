@@ -2,8 +2,6 @@
 
 [![Build Status](https://travis-ci.org/zeMirco/lockit-sendmail.png)](https://travis-ci.org/zeMirco/lockit-sendmail) [![NPM version](https://badge.fury.io/js/lockit-sendmail.png)](http://badge.fury.io/js/lockit-sendmail)
 
-[![NPM](https://nodei.co/npm/lockit-sendmail.png)](https://nodei.co/npm/lockit-sendmail/)
-
 Email utilities for [Lockit](https://github.com/zeMirco/lockit).
 
 ## Installation
