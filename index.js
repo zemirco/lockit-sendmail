@@ -1,4 +1,3 @@
-
 var nodemailer = require('nodemailer');
 var ejs = require('ejs');
 
@@ -34,9 +33,9 @@ module.exports = function(config) {
 
     // link lookup map
     var linkMap = {
-      emailSignup: '<a href="' + config.url + config.signupRoute + '/' + token + '">' + config.emailSignup.linkText + '</a>',
-      emailResendVerification: '<a href="' + config.url + config.signupRoute + '/' + token + '">' + config.emailResendVerification.linkText + '</a>',
-      emailForgotPassword: '<a href="' + config.url + config.forgotPasswordRoute + '/' + token + '">' + config.emailForgotPassword.linkText + '</a>'
+      emailSignup: '<a href="' + config.url + config.signup.route + '/' + token + '">' + config.emailSignup.linkText + '</a>',
+      emailResendVerification: '<a href="' + config.url + config.signup.route + '/' + token + '">' + config.emailResendVerification.linkText + '</a>',
+      emailForgotPassword: '<a href="' + config.url + config.forgotPassword.route + '/' + token + '">' + config.emailForgotPassword.linkText + '</a>'
     };
             
     // get subject, title and text from config file
