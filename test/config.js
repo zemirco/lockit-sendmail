@@ -2,8 +2,14 @@ exports.appname = 'Test App';
 exports.url = 'http://localhost:3000';
 
 // signup settings
-exports.signupRoute = '/signup';
-exports.forgotPasswordRoute = '/forgot-password';
+exports.signup = {
+  route: '/signup',
+};
+
+// forgot password settings
+exports.forgotPassword = {
+  route: '/forgot-password',
+};
 
 // email settings
 exports.emailType = 'Stub';
