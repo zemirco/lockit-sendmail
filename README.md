@@ -1,6 +1,6 @@
 # Lockit sendmail
 
-[![Build Status](https://travis-ci.org/zeMirco/lockit-sendmail.png)](https://travis-ci.org/zeMirco/lockit-sendmail) [![NPM version](https://badge.fury.io/js/lockit-sendmail.png)](http://badge.fury.io/js/lockit-sendmail)
+[![Build Status](https://travis-ci.org/zeMirco/lockit-sendmail.svg?branch=v0.1.2)](https://travis-ci.org/zeMirco/lockit-sendmail) [![NPM version](https://badge.fury.io/js/lockit-sendmail.svg)](http://badge.fury.io/js/lockit-sendmail)
 
 Email utilities for [Lockit](https://github.com/zeMirco/lockit).
 
@@ -65,7 +65,7 @@ email.send('john', 'john@wayne.com', 'abc-123-def', function(err, res) {
 })
 ```
 
-You can configure the email's content through your `config.js`. 
+You can configure the email's content through your `config.js`.
 Just modify the `emailSignup` object.
 Here is a sample setup.
 
@@ -99,7 +99,7 @@ email.send('john', 'john@wayne.com', function(err, res) {
 })
 ```
 
-You can configure the email's content through your `config.js`. 
+You can configure the email's content through your `config.js`.
 Just modify the `emailSignupTaken` object.
 Here is a sample setup.
 
@@ -132,7 +132,7 @@ email.send('john', 'john@wayne.com', 'abc-123-def', function(err, res) {
 })
 ```
 
-You can configure the email's content through your `config.js`. 
+You can configure the email's content through your `config.js`.
 Just modify the `emailResendVerification` object.
 Here is a sample setup.
 
@@ -166,7 +166,7 @@ email.send('john', 'john@wayne.com', 'abc-123-def', function(err, res) {
 })
 ```
 
-You can configure the email's content through your `config.js`. 
+You can configure the email's content through your `config.js`.
 Just modify the `emailForgotPassword` object.
 Here is a sample setup.
 
@@ -192,10 +192,4 @@ exports.emailForgotPassword = {
 
 ## License
 
-Copyright (C) 2013 [Mirco Zeiss](mailto: mirco.zeiss@gmail.com)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+MIT
