@@ -1,8 +1,8 @@
 # Lockit sendmail
 
-[![Build Status](https://travis-ci.org/zeMirco/lockit-sendmail.svg?branch=v0.1.2)](https://travis-ci.org/zeMirco/lockit-sendmail) [![NPM version](https://badge.fury.io/js/lockit-sendmail.svg)](http://badge.fury.io/js/lockit-sendmail)
+[![Build Status](https://travis-ci.org/zemirco/lockit-sendmail.svg?branch=v0.1.2)](https://travis-ci.org/zemirco/lockit-sendmail) [![NPM version](https://badge.fury.io/js/lockit-sendmail.svg)](http://badge.fury.io/js/lockit-sendmail)
 
-Email utilities for [Lockit](https://github.com/zeMirco/lockit).
+Email utilities for [Lockit](https://github.com/zemirco/lockit).
 
 ## Installation
 
@@ -10,23 +10,15 @@ Email utilities for [Lockit](https://github.com/zeMirco/lockit).
 
 ```js
 var Email = require('lockit-sendmail');
+var config = require('./config.js');
 
-// var email = new Email(type)
-// where type can be
-// - 'emailSignup'
-// - 'emailSignupTaken'
-// - 'emailResendVerification'
-// - 'emailForgotPassword'
+var email = new Email(config);
 
-var email = new Email('emailSignup')
-email.send('john', 'john@wayne.com', 'secret-token', function(err, res) {
+email.signup('john', 'john@wayne.com', 'secret-token', function(err, res) {
   // res is the same res you would get from nodemailer
   // for more infos see https://github.com/andris9/Nodemailer#return-callback
 })
 ```
-
-The third argument `secret-token` is optional. It is usually required but not for the email that
-tells a user that an email address is already registered.
 
 ## Configuration
 
@@ -58,8 +50,7 @@ An email with a link containing a unique token is sent to his email address.
 When the user clicks on this link we know that the given email address exists und belongs to the right user.
 
 ```js
-var email = new Email('emailSignup');
-email.send('john', 'john@wayne.com', 'abc-123-def', function(err, res) {
+email.signup('john', 'john@wayne.com', 'abc-123-def', function(err, res) {
   if (err) console.log(err);
   // ...
 })
@@ -92,8 +83,7 @@ We send a hint to the right owner to indicate this happening.
 Never expose to a user whether an email address exists or not.
 
 ```js
-var email = new Email('emailSignupTaken');
-email.send('john', 'john@wayne.com', function(err, res) {
+email.taken('john', 'john@wayne.com', function(err, res) {
   if (err) console.log(err);
   // ...
 })
@@ -125,8 +115,7 @@ A user signed up but lost or didn't receive the email containing the link for hi
 Therefore he should be able to send the link again, with a different verification token.
 
 ```js
-var email = new Email('emailResendVerification');
-email.send('john', 'john@wayne.com', 'abc-123-def', function(err, res) {
+email.resend('john', 'john@wayne.com', 'abc-123-def', function(err, res) {
   if (err) console.log(err);
   // ...
 })
@@ -159,8 +148,7 @@ He enters his email address and an email with a link
 containing a secret token is sent to his email address.
 
 ```js
-var email = new Email('emailForgotPassword');
-email.send('john', 'john@wayne.com', 'abc-123-def', function(err, res) {
+email.forgot('john', 'john@wayne.com', 'abc-123-def', function(err, res) {
   if (err) console.log(err);
   // ...
 })
