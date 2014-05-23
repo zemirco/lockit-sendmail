@@ -2,84 +2,125 @@
 var nodemailer = require('nodemailer');
 var ejs = require('ejs');
 
-module.exports = function(config) {
-
-  // load email template as specified in config
-  var template = require(config.emailTemplate);
 
 
-
-  // constructor function
-  var Email = function(type) {
-
-    // make "new" optional
-    if (!(this instanceof Email)) {
-      return new Email(type);
-    }
-
-    // save type of email for proper link generation
-    this.type = type;
-
-  };
+/**
+ * Email constructor function.
+ *
+ * @constructor
+ * @param {Object} config
+ */
+var Email = module.exports = function(config) {
+  if (!(this instanceof Email)) return new Email(config);
+  this.template = require(config.emailTemplate);
+  this.config = config;
+};
 
 
 
-  // send email, token is optional
-  Email.prototype.send = function(username, email, token, done) {
+/**
+ * Send email with nodemailer.
+ *
+ * @private
+ * @param {String} type
+ * @param {String} username
+ * @param {String} email
+ * @param {Function} done
+ */
+Email.prototype.send = function(type, username, email, done) {
+  var config = this.config;
+  var that = this;
 
-    // sometimes token isn't needed
-    if (arguments.length === 3) {
-      done = token;
-    }
+  var subject = config[type].subject;
+  var title = config[type].title;
+  var text = config[type].text;
 
-    // link lookup map
-    var linkMap = {
-      emailSignup: '<a href="' + config.url + config.signup.route + '/' + token + '">' + config.emailSignup.linkText + '</a>',
-      emailResendVerification: '<a href="' + config.url + config.signup.route + '/' + token + '">' + config.emailResendVerification.linkText + '</a>',
-      emailForgotPassword: '<a href="' + config.url + config.forgotPassword.route + '/' + token + '">' + config.emailForgotPassword.linkText + '</a>'
+  this.template(title, text, function(err, html) {
+    if (err) return done(err);
+
+    // default local variables
+    var locals = {
+      appname: config.appname,
+      link: that.link,
+      username: username
     };
 
-    // get subject, title and text from config file
-    var subject = config[this.type].subject;
-    var title = config[this.type].subject;
-    var text = config[this.type].text;
+    // add options
+    var options = {
+      from: config.emailFrom,
+      to: email,
+      subject: ejs.render(subject, locals),
+      html: ejs.render(html, locals)
+    };
 
-    // create link for email
-    var link = linkMap[this.type] || '';
-
-    // create html from template module
-    template(title, text, function(err, html) {
-      if (err) return done(err);
-
-      // default local variables
-      var locals = {
-        appname: config.appname,
-        link: link,
-        username: username
-      };
-
-      // add options
-      var options = {
-        from: config.emailFrom,
-        to: email,
-        subject: ejs.render(subject, locals),
-        html: ejs.render(html, locals)
-      };
-
-      // send email with nodemailer
-      var smtpTransport = nodemailer.createTransport(config.emailType, config.emailSettings);
-      smtpTransport.sendMail(options, function(err, res){
-        if(err) return done(err);
-        smtpTransport.close(); // shut down the connection pool, no more messages
-        done(null, res);
-      });
+    // send email with nodemailer
+    var smtpTransport = nodemailer.createTransport(config.emailType, config.emailSettings);
+    smtpTransport.sendMail(options, function(err, res){
+      if(err) return done(err);
+      smtpTransport.close(); // shut down the connection pool, no more messages
+      done(null, res);
     });
+  });
 
-  };
+};
 
 
 
-  // return constructor function
-  return Email;
+/**
+ * Send signup email.
+ *
+ * @param {String} username
+ * @param {String} email
+ * @param {String} token
+ * @param {Function} done
+ */
+Email.prototype.signup = function(username, email, token, done) {
+  var c = this.config;
+  this.link = '<a href="' + c.url + c.signup.route + '/' + token + '">' + c.emailSignup.linkText + '</a>';
+  this.send('emailSignup', username, email, done);
+};
 
+
+
+/**
+ * Send signup email again.
+ *
+ * @param {String} username
+ * @param {String} email
+ * @param {String} token
+ * @param {Function} done
+ */
+Email.prototype.resend = function(username, email, token, done) {
+  var c = this.config;
+  this.link = '<a href="' + c.url + c.signup.route + '/' + token + '">' + c.emailResendVerification.linkText + '</a>';
+  this.send('emailResendVerification', username, email, done);
+};
+
+
+
+/**
+ * Send email to email address owner with notice about signup.
+ *
+ * @param {String} username
+ * @param {String} email
+ * @param {Function} done
+ */
+Email.prototype.taken = function(username, email, done) {
+  this.send('emailSignupTaken', username, email, done);
+};
+
+
+
+/**
+ * Send email with link for new password.
+ *
+ * @param {String} username
+ * @param {String} email
+ * @param {String} token
+ * @param {Function} done
+ */
+Email.prototype.forgot = function(username, email, token, done) {
+  var c = this.config;
+  this.link = '<a href="' + c.url + c.forgotPassword.route + '/' + token + '">' + c.emailForgotPassword.linkText + '</a>';
+  this.send('emailForgotPassword', username, email, done);
 };
