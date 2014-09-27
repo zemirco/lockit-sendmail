@@ -33,7 +33,7 @@ describe('sendmail', function() {
     it('should use the correct recipient email address', function(done) {
       send('test', 'john', 'john@email.com', function(err, res) {
         if (err) console.log(err);
-        res.message.should.include('To: ' + 'john@email.com');
+        res.message.should.containEql('To: ' + 'john@email.com');
         done();
       });
     });
@@ -41,7 +41,7 @@ describe('sendmail', function() {
     it('should set the right subject', function(done) {
       send('test', 'john', 'john@email.com', function(err, res) {
         if (err) console.log(err);
-        res.message.should.include('Subject: ' + 'Hello there');
+        res.message.should.containEql('Subject: ' + 'Hello there');
         done();
       });
     });
@@ -49,9 +49,9 @@ describe('sendmail', function() {
     it('should use the correct local variables', function(done) {
       send('test', 'john', 'john@email.com', function(err, res) {
         if (err) console.log(err);
-        res.message.should.include('Welcome to lockit!');
+        res.message.should.containEql('Welcome to lockit!');
         var link = mimelib.encodeQuotedPrintable('<a href="http://localhost:3000/signup/abc123">Click here</a>');
-        res.message.clean().should.include(link.clean());
+        res.message.clean().should.containEql(link.clean());
         done();
       });
     });
@@ -63,7 +63,7 @@ describe('sendmail', function() {
     it('should use the correct text from config', function(done) {
       email.signup('john', 'john@email.com', 'abc123', function(err, res) {
         if (err) console.log(err);
-        res.message.should.include('Welcome to Test App!');
+        res.message.should.containEql('Welcome to Test App!');
         done();
       });
     });
@@ -72,7 +72,7 @@ describe('sendmail', function() {
       email.signup('john', 'john@email.com', 'qweqwe', function(err, res) {
         if (err) console.log(err);
         var link = mimelib.encodeQuotedPrintable('<a href="http://localhost:3000/signup/qweqwe">Click here</a>');
-        res.message.clean().should.include(link.clean());
+        res.message.clean().should.containEql(link.clean());
         done();
       });
     });
@@ -84,7 +84,7 @@ describe('sendmail', function() {
     it('should use the correct text from config', function(done) {
       email.taken('john', 'john@email.com', function(err, res) {
         if (err) console.log(err);
-        res.message.should.include('Your email is already registered and you cannot sign up twice');
+        res.message.should.containEql('Your email is already registered and you cannot sign up twice');
         done();
       });
     });
@@ -96,7 +96,7 @@ describe('sendmail', function() {
     it('should use the correct text from config', function(done) {
       email.resend('john', 'john@email.com', 'abc123', function(err, res) {
         if (err) console.log(err);
-        res.message.should.include('here is the link again.');
+        res.message.should.containEql('here is the link again.');
         done();
       });
     });
@@ -105,7 +105,7 @@ describe('sendmail', function() {
       email.resend('john', 'john@email.com', 'qweqwe', function(err, res) {
         if (err) console.log(err);
         var link = mimelib.encodeQuotedPrintable('<a href="http://localhost:3000/signup/qweqwe">Click here</a>');
-        res.message.clean().should.include(link.clean());
+        res.message.clean().should.containEql(link.clean());
         done();
       });
     });
@@ -117,7 +117,7 @@ describe('sendmail', function() {
     it('should use the correct text from config', function(done) {
       email.forgot('john', 'john@email.com', 'abc123', function(err, res) {
         if (err) console.log(err);
-        res.message.should.include('to reset your password.');
+        res.message.should.containEql('to reset your password.');
         done();
       });
     });
@@ -126,7 +126,7 @@ describe('sendmail', function() {
       email.forgot('john', 'john@email.com', 'qweqwe', function(err, res) {
         if (err) console.log(err);
         var link = mimelib.encodeQuotedPrintable('<a href="http://localhost:3000/forgot-password/qweqwe">Click here</a>');
-        res.message.clean().should.include(link.clean());
+        res.message.clean().should.containEql(link.clean());
         done();
       });
     });
