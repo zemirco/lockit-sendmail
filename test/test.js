@@ -14,7 +14,7 @@ var Email = require('../index.js');
 
 // remove '=\r\n' from String - coming from quoted printable encoding ?!?
 String.prototype.clean = function() {
-  return this.replace(/=\r\n/g, '');
+  return this.replace(/\r\n/g, '');
 };
 
 describe('sendmail', function() {
@@ -24,6 +24,7 @@ describe('sendmail', function() {
   describe('send()', function() {
 
     var that = {
+      transport: require('nodemailer-stub-transport'),
       template: require(config.emailTemplate),
       config: config,
       link: '<a href="http://localhost:3000/signup/abc123">Click here</a>'
@@ -33,7 +34,7 @@ describe('sendmail', function() {
     it('should use the correct recipient email address', function(done) {
       send('test', 'john', 'john@email.com', function(err, res) {
         if (err) console.log(err);
-        res.message.should.containEql('To: ' + 'john@email.com');
+        res.response.toString().should.containEql('To: ' + 'john@email.com');
         done();
       });
     });
@@ -41,7 +42,7 @@ describe('sendmail', function() {
     it('should set the right subject', function(done) {
       send('test', 'john', 'john@email.com', function(err, res) {
         if (err) console.log(err);
-        res.message.should.containEql('Subject: ' + 'Hello there');
+        res.response.toString().should.containEql('Subject: ' + 'Hello there');
         done();
       });
     });
@@ -49,9 +50,9 @@ describe('sendmail', function() {
     it('should use the correct local variables', function(done) {
       send('test', 'john', 'john@email.com', function(err, res) {
         if (err) console.log(err);
-        res.message.should.containEql('Welcome to lockit!');
-        var link = mimelib.encodeQuotedPrintable('<a href="http://localhost:3000/signup/abc123">Click here</a>');
-        res.message.clean().should.containEql(link.clean());
+        res.response.toString().should.containEql('Welcome to lockit!');
+        var link = 'href="http://localhost:3000/signup/abc123">Click here</a>';
+        res.response.toString().clean().should.containEql(link.clean());
         done();
       });
     });
@@ -63,7 +64,7 @@ describe('sendmail', function() {
     it('should use the correct text from config', function(done) {
       email.signup('john', 'john@email.com', 'abc123', function(err, res) {
         if (err) console.log(err);
-        res.message.should.containEql('Welcome to Test App!');
+        res.response.toString().should.containEql('Welcome to Test App!');
         done();
       });
     });
@@ -71,8 +72,8 @@ describe('sendmail', function() {
     it('should generate the correct link target', function(done) {
       email.signup('john', 'john@email.com', 'qweqwe', function(err, res) {
         if (err) console.log(err);
-        var link = mimelib.encodeQuotedPrintable('<a href="http://localhost:3000/signup/qweqwe">Click here</a>');
-        res.message.clean().should.containEql(link.clean());
+        var link = 'href="http://localhost:3000/signup/qweqwe">Click here</a>';
+        res.response.toString().clean().should.containEql(link.clean());
         done();
       });
     });
@@ -84,7 +85,7 @@ describe('sendmail', function() {
     it('should use the correct text from config', function(done) {
       email.taken('john', 'john@email.com', function(err, res) {
         if (err) console.log(err);
-        res.message.should.containEql('Your email is already registered and you cannot sign up twice');
+        res.response.toString().should.containEql('Your email is already registered and you cannot sign up twice');
         done();
       });
     });
@@ -96,7 +97,7 @@ describe('sendmail', function() {
     it('should use the correct text from config', function(done) {
       email.resend('john', 'john@email.com', 'abc123', function(err, res) {
         if (err) console.log(err);
-        res.message.should.containEql('here is the link again.');
+        res.response.toString().should.containEql('here is the link again.');
         done();
       });
     });
@@ -104,8 +105,8 @@ describe('sendmail', function() {
     it('should generate the correct link target', function(done) {
       email.resend('john', 'john@email.com', 'qweqwe', function(err, res) {
         if (err) console.log(err);
-        var link = mimelib.encodeQuotedPrintable('<a href="http://localhost:3000/signup/qweqwe">Click here</a>');
-        res.message.clean().should.containEql(link.clean());
+        var link = 'href="http://localhost:3000/signup/qweqwe">Click here</a>';
+        res.response.toString().should.containEql(link);
         done();
       });
     });
@@ -117,7 +118,7 @@ describe('sendmail', function() {
     it('should use the correct text from config', function(done) {
       email.forgot('john', 'john@email.com', 'abc123', function(err, res) {
         if (err) console.log(err);
-        res.message.should.containEql('to reset your password.');
+        res.response.toString().clean().should.containEql('to reset your password.');
         done();
       });
     });
@@ -125,8 +126,8 @@ describe('sendmail', function() {
     it('should generate the correct link target', function(done) {
       email.forgot('john', 'john@email.com', 'qweqwe', function(err, res) {
         if (err) console.log(err);
-        var link = mimelib.encodeQuotedPrintable('<a href="http://localhost:3000/forgot-password/qweqwe">Click here</a>');
-        res.message.clean().should.containEql(link.clean());
+        var link = 'href="http://localhost:3000/forgot-password/qweqwe">Click here</a>';
+        res.response.toString().clean().should.containEql(link);
         done();
       });
     });
