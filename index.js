@@ -55,7 +55,7 @@ Email.prototype.send = function(type, username, email, done) {
     };
 
     // send email with nodemailer
-    var transporter = nodemailer.createTransport(that.transport(options));
+    var transporter = nodemailer.createTransport(that.transport(that.config.emailSettings));
     transporter.sendMail(options, function(err, res){
       if(err) return done(err);
       transporter.close(); // shut down the connection pool, no more messages
