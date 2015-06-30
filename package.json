@@ -1,6 +1,6 @@
 {
   "name": "lockit-sendmail",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "utilities for all the email communication from lockit",
   "main": "index.js",
   "scripts": {
