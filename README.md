@@ -1,6 +1,6 @@
 # Lockit sendmail
 
-[![Build Status](https://travis-ci.org/zemirco/lockit-sendmail.svg?branch=v0.1.2)](https://travis-ci.org/zemirco/lockit-sendmail) [![NPM version](https://badge.fury.io/js/lockit-sendmail.svg)](http://badge.fury.io/js/lockit-sendmail)
+[![Build Status](https://travis-ci.org/zemirco/lockit-sendmail.svg?branch=master)](https://travis-ci.org/zemirco/lockit-sendmail) [![NPM version](https://badge.fury.io/js/lockit-sendmail.svg)](http://badge.fury.io/js/lockit-sendmail)
 
 Email utilities for [Lockit](https://github.com/zemirco/lockit).
 
