@@ -176,7 +176,7 @@ exports.emailForgotPassword = {
 
 ## Test
 
-`grunt`
+`$ npm test`
 
 ## License
 
