@@ -28,6 +28,7 @@
     "nodemailer-smtp-transport": "^1.0.3"
   },
   "devDependencies": {
+    "eslint": "^0.24.0",
     "lockit-template-blank": "0.0.1",
     "mocha": "^2.2.5",
     "nodemailer-stub-transport": "^1.0.0",

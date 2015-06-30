@@ -1,6 +1,6 @@
 'use strict';
 
-var should = require('should');
+var should = require('should'); // eslint-disable-line no-unused-vars
 // var mimelib = require('mimelib');
 var config = require('./config.js');
 
@@ -14,8 +14,8 @@ config.test = {
 var Email = require('../index.js');
 
 // remove '=\r\n' from String - coming from quoted printable encoding ?!?
-String.prototype.clean = function() {
-  return this.replace(/\r\n/g, '');
+var clean = function(s) {
+  return s.replace(/\r\n/g, '');
 };
 
 describe('sendmail', function() {
@@ -53,7 +53,7 @@ describe('sendmail', function() {
         if (err) {console.log(err); }
         res.response.toString().should.containEql('Welcome to lockit!');
         var link = 'href="http://localhost:3000/signup/abc123">Click here</a>';
-        res.response.toString().clean().should.containEql(link.clean());
+        clean(res.response.toString()).should.containEql(clean(link));
         done();
       });
     });
@@ -74,7 +74,7 @@ describe('sendmail', function() {
       email.signup('john', 'john@email.com', 'qweqwe', function(err, res) {
         if (err) {console.log(err); }
         var link = 'href="http://localhost:3000/signup/qweqwe">Click here</a>';
-        res.response.toString().clean().should.containEql(link.clean());
+        clean(res.response.toString()).should.containEql(clean(link));
         done();
       });
     });
@@ -119,7 +119,7 @@ describe('sendmail', function() {
     it('should use the correct text from config', function(done) {
       email.forgot('john', 'john@email.com', 'abc123', function(err, res) {
         if (err) {console.log(err); }
-        res.response.toString().clean().should.containEql('to reset your password.');
+        clean(res.response.toString()).should.containEql('to reset your password.');
         done();
       });
     });
@@ -128,7 +128,7 @@ describe('sendmail', function() {
       email.forgot('john', 'john@email.com', 'qweqwe', function(err, res) {
         if (err) {console.log(err); }
         var link = 'href="http://localhost:3000/forgot-password/qweqwe">Click here</a>';
-        res.response.toString().clean().should.containEql(link);
+        clean(res.response.toString()).should.containEql(link);
         done();
       });
     });
