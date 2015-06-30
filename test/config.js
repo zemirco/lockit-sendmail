@@ -3,12 +3,12 @@ exports.url = 'http://localhost:3000';
 
 // signup settings
 exports.signup = {
-  route: '/signup',
+  route: '/signup'
 };
 
 // forgot password settings
 exports.forgotPassword = {
-  route: '/forgot-password',
+  route: '/forgot-password'
 };
 
 // email settings

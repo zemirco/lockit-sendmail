@@ -1,6 +1,7 @@
+'use strict';
 
 var should = require('should');
-var mimelib = require('mimelib');
+// var mimelib = require('mimelib');
 var config = require('./config.js');
 
 // for send() tests
@@ -33,7 +34,7 @@ describe('sendmail', function() {
 
     it('should use the correct recipient email address', function(done) {
       send('test', 'john', 'john@email.com', function(err, res) {
-        if (err) console.log(err);
+        if (err) {console.log(err); }
         res.response.toString().should.containEql('To: ' + 'john@email.com');
         done();
       });
@@ -41,7 +42,7 @@ describe('sendmail', function() {
 
     it('should set the right subject', function(done) {
       send('test', 'john', 'john@email.com', function(err, res) {
-        if (err) console.log(err);
+        if (err) {console.log(err); }
         res.response.toString().should.containEql('Subject: ' + 'Hello there');
         done();
       });
@@ -49,7 +50,7 @@ describe('sendmail', function() {
 
     it('should use the correct local variables', function(done) {
       send('test', 'john', 'john@email.com', function(err, res) {
-        if (err) console.log(err);
+        if (err) {console.log(err); }
         res.response.toString().should.containEql('Welcome to lockit!');
         var link = 'href="http://localhost:3000/signup/abc123">Click here</a>';
         res.response.toString().clean().should.containEql(link.clean());
@@ -63,7 +64,7 @@ describe('sendmail', function() {
 
     it('should use the correct text from config', function(done) {
       email.signup('john', 'john@email.com', 'abc123', function(err, res) {
-        if (err) console.log(err);
+        if (err) {console.log(err); }
         res.response.toString().should.containEql('Welcome to Test App!');
         done();
       });
@@ -71,7 +72,7 @@ describe('sendmail', function() {
 
     it('should generate the correct link target', function(done) {
       email.signup('john', 'john@email.com', 'qweqwe', function(err, res) {
-        if (err) console.log(err);
+        if (err) {console.log(err); }
         var link = 'href="http://localhost:3000/signup/qweqwe">Click here</a>';
         res.response.toString().clean().should.containEql(link.clean());
         done();
@@ -84,7 +85,7 @@ describe('sendmail', function() {
 
     it('should use the correct text from config', function(done) {
       email.taken('john', 'john@email.com', function(err, res) {
-        if (err) console.log(err);
+        if (err) {console.log(err); }
         res.response.toString().should.containEql('Your email is already registered and you cannot sign up twice');
         done();
       });
@@ -96,7 +97,7 @@ describe('sendmail', function() {
 
     it('should use the correct text from config', function(done) {
       email.resend('john', 'john@email.com', 'abc123', function(err, res) {
-        if (err) console.log(err);
+        if (err) {console.log(err); }
         res.response.toString().should.containEql('here is the link again.');
         done();
       });
@@ -104,7 +105,7 @@ describe('sendmail', function() {
 
     it('should generate the correct link target', function(done) {
       email.resend('john', 'john@email.com', 'qweqwe', function(err, res) {
-        if (err) console.log(err);
+        if (err) {console.log(err); }
         var link = 'href="http://localhost:3000/signup/qweqwe">Click here</a>';
         res.response.toString().should.containEql(link);
         done();
@@ -117,7 +118,7 @@ describe('sendmail', function() {
 
     it('should use the correct text from config', function(done) {
       email.forgot('john', 'john@email.com', 'abc123', function(err, res) {
-        if (err) console.log(err);
+        if (err) {console.log(err); }
         res.response.toString().clean().should.containEql('to reset your password.');
         done();
       });
@@ -125,7 +126,7 @@ describe('sendmail', function() {
 
     it('should generate the correct link target', function(done) {
       email.forgot('john', 'john@email.com', 'qweqwe', function(err, res) {
-        if (err) console.log(err);
+        if (err) {console.log(err); }
         var link = 'href="http://localhost:3000/forgot-password/qweqwe">Click here</a>';
         res.response.toString().clean().should.containEql(link);
         done();

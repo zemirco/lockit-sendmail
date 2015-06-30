@@ -1,3 +1,4 @@
+'use strict';
 
 var nodemailer = require('nodemailer');
 var ejs = require('ejs');
@@ -11,7 +12,7 @@ var ejs = require('ejs');
  * @param {Object} config
  */
 var Email = module.exports = function(config) {
-  if (!(this instanceof Email)) return new Email(config);
+  if (!(this instanceof Email)) {return new Email(config); }
   this.template = require(config.emailTemplate);
   this.transport = require(config.emailType);
   this.config = config;
@@ -37,7 +38,7 @@ Email.prototype.send = function(type, username, email, done) {
   var text = config[type].text;
 
   this.template(title, text, function(err, html) {
-    if (err) return done(err);
+    if (err) {return done(err); }
 
     // default local variables
     var locals = {
@@ -56,8 +57,8 @@ Email.prototype.send = function(type, username, email, done) {
 
     // send email with nodemailer
     var transporter = nodemailer.createTransport(that.transport(options));
-    transporter.sendMail(options, function(err, res){
-      if(err) return done(err);
+    transporter.sendMail(options, function(error, res){
+      if (err) {return done(error); }
       transporter.close(); // shut down the connection pool, no more messages
       done(null, res);
     });
