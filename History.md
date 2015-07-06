@@ -1,4 +1,8 @@
 
+##### 1.1.1 / 2015-07-06
+
+- update `lockit-template-blank`
+
 ##### 1.1.1 / 2015-06-30
 
 - use correct email settings to nodemailer transport
