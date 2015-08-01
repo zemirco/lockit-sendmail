@@ -78,7 +78,13 @@ Email.prototype.send = function(type, username, email, done) {
  */
 Email.prototype.signup = function(username, email, token, done) {
   var c = this.config;
-  this.link = '<a href="' + c.url + c.signup.route + '/' + token + '">' + c.emailSignup.linkText + '</a>';
+  var route;
+  if(c.signup.customLink) {
+    route = c.signup.customLink;
+  } else {
+    route = c.rest ? '/rest' + c.signup.route : c.signup.route;
+  }
+  this.link = '<a href="' + c.url + route + '/' + token + '">' + c.emailSignup.linkText + '</a>';
   this.send('emailSignup', username, email, done);
 };
 
@@ -94,7 +100,13 @@ Email.prototype.signup = function(username, email, token, done) {
  */
 Email.prototype.resend = function(username, email, token, done) {
   var c = this.config;
-  this.link = '<a href="' + c.url + c.signup.route + '/' + token + '">' + c.emailResendVerification.linkText + '</a>';
+  var route;
+  if(c.signup.customLink) {
+    route = c.signup.customLink;
+  } else {
+    route = c.rest ? '/rest' + c.signup.route : c.signup.route;
+  }
+  this.link = '<a href="' + c.url + route + '/' + token + '">' + c.emailResendVerification.linkText + '</a>';
   this.send('emailResendVerification', username, email, done);
 };
 
@@ -123,6 +135,12 @@ Email.prototype.taken = function(username, email, done) {
  */
 Email.prototype.forgot = function(username, email, token, done) {
   var c = this.config;
-  this.link = '<a href="' + c.url + c.forgotPassword.route + '/' + token + '">' + c.emailForgotPassword.linkText + '</a>';
+  var route;
+  if(c.forgotPassword.customLink) {
+    route = c.forgotPassword.customLink;
+  } else {
+    route = c.rest ? '/rest' + c.forgotPassword.route : c.forgotPassword.route;
+  }
+  this.link = '<a href="' + c.url + route + '/' + token + '">' + c.emailForgotPassword.linkText + '</a>';
   this.send('emailForgotPassword', username, email, done);
 };
