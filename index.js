@@ -123,6 +123,10 @@ Email.prototype.taken = function(username, email, done) {
  */
 Email.prototype.forgot = function(username, email, token, done) {
   var c = this.config;
-  this.link = '<a href="' + c.url + c.forgotPassword.route + '/' + token + '">' + c.emailForgotPassword.linkText + '</a>';
+  var urlToUse = c.url;
+  if (c.forgotPassword.customEmailUrl) {
+	urlToUse = c.forgotPassword.customEmailUrl;
+  }
+  this.link = '<a href="' + urlToUse + c.forgotPassword.route + '/' + token + '">' + c.emailForgotPassword.linkText + '</a>';
   this.send('emailForgotPassword', username, email, done);
 };
